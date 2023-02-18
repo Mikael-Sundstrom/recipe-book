@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "my-personal-recipe-book": {
+      "hosting": {
+        "recipe-book": [
+          "my-personal-recipe-book"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "my-personal-recipe-book"
+  }
+}

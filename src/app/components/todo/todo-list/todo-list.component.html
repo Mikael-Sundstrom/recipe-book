@@ -1,0 +1,47 @@
+<!-- List of todos -->
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+	<ng-container matColumnDef="completed">
+		<th mat-header-cell *matHeaderCellDef> Klar </th>
+		<td mat-cell *matCellDef="let todo">
+			<mat-checkbox [checked]="todo.completed" (change)="toggle(todo)"> </mat-checkbox>
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="title">
+		<th mat-header-cell *matHeaderCellDef> Produkt </th>
+		<td mat-cell *matCellDef="let todo"> {{ todo.title }} </td>
+	</ng-container>
+
+	<ng-container matColumnDef="qty">
+		<th mat-header-cell *matHeaderCellDef> Antal </th>
+		<td mat-cell *matCellDef="let todo"> {{ todo.qty }} {{ todo.unit }} </td>
+	</ng-container>
+
+	<ng-container matColumnDef="expandedDetail">
+		<td mat-cell *matCellDef="let todo" [attr.colspan]="columnsToDisplay.length">
+			<div class="todo-detail" [@detailExpand]="todo == expandedTodo ? 'expanded' : 'collapsed'">
+				<img onerror="this.src='assets/images/icons/placeholder.svg'" src="assets/images/items/{{ todo.title | lowercase }}.png" alt="{{ todo.title }}" />
+				<div class="todo-description">
+					<h2> {{ todo.title }} </h2>
+					<span> {{ todo.qty }} {{ todo.unit }} </span>
+					<br>
+					<span> {{ todo.description }} </span>
+				</div>
+			</div>
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="id">
+		<th mat-header-cell *matHeaderCellDef> Radera </th>
+		<td mat-cell *matCellDef="let todo">
+			<button mat-icon-button color="accent" aria-label="Delete" (click)="delete(todo)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+	<tr mat-row *matRowDef="let todo; columns: columnsToDisplay;" [ngClass]="setClasses(todo.completed)" class="todo-row" [class.expanded-row]="expandedTodo === todo" (click)="expandedTodo = expandedTodo === todo ? null : todo"></tr>
+	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+</table>

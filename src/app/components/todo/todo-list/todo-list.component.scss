@@ -1,0 +1,52 @@
+.todo-completed,
+.todo-completed td {
+	text-decoration: line-through;
+	color: #ccc;
+}
+
+table {
+	width: 100%;
+
+	tr {
+		height: 0px;
+
+		th {
+			height: 56px;
+		}
+
+		td {
+			padding-right: 16px;
+
+			&:first-child {
+				width: 24px;
+			}
+
+			&:nth-child(2) {
+				width: 46px;
+			}
+		}
+	}
+
+	.todo-row td {
+		border-bottom-width: 0;
+	}
+}
+
+.todo-detail {
+	overflow: hidden;
+	display: flex;
+
+	img {
+		min-width: 100px;
+		margin: 8px 0;
+		height: 100px;
+	}
+
+	.todo-description {
+		padding: 16px;
+
+		h2 {
+			margin-bottom: 0px;
+		}
+	}
+}

@@ -1,0 +1,19 @@
+tr {
+	box-shadow: inset 0 1px 0 rgba($color: #777, $alpha: 0.5);
+	&:nth-child(2) {
+		background-color: chocolate;
+	}
+	th {
+		height: 32px;
+		background-color: red;
+	}
+	th:first-child,
+	td:first-child {
+		width: 160px;
+	}
+	td {
+		img {
+			width: 160px;
+		}
+	}
+}

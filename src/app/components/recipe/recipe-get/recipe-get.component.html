@@ -1,0 +1,87 @@
+<!-- <span>{{ recipeItem?.id }}</span> -->
+
+
+<div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+	<div fxFlex="40" fxLayout.md="column-reverse" gdAlignColumns="start" class="left-column">
+
+		<div class="feature-image">
+			<img #recipeImage [src]="recipeItem.image" alt="">
+		</div>
+		<div>
+			<h1>{{ recipeItem.title }}
+				<button *ngIf="editing" mat-button color="accent" (click)="openRecipeEditMetaDialog()">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button *ngIf="!editing" mat-button (click)="showHideEditButton($event)" color="accent">
+					<mat-icon>settings</mat-icon>
+				</button>
+			</h1>
+			<mat-chip-set>
+				<mat-chip *ngFor="let tag of tags">
+					{{ tag }}
+				</mat-chip>
+			</mat-chip-set>
+			<mat-list>
+				<mat-list-item>
+					<img src="/assets/images/icons/clock.svg" alt="icon" height="24px">
+					&nbsp;
+					{{ recipeItem.cooking }} min
+				</mat-list-item>
+				<mat-list-item>
+					<img src="/assets/images/icons/fruits.svg" alt="icon" height="24px">
+					&nbsp;
+					{{ recipeItem.portions }} potioner
+				</mat-list-item>
+			</mat-list>
+			<h2>
+				Beskrivning
+				<button *ngIf="editing" mat-button color="accent" (click)="openRecipeEditDescriptionDialog()">
+					<mat-icon>edit</mat-icon>
+				</button>
+			</h2>
+			{{ recipeItem.description }}
+		</div>
+	</div>
+
+	<div fxFlex="60" class="right-column">
+		<h2>
+			Ingridienser
+			<button *ngIf="editing" mat-button color="accent" (click)="openRecipeEditIngredientsDialog()">
+				<mat-icon>edit</mat-icon>
+			</button>
+		</h2>
+		<table mat-table [dataSource]="recipeItem.ingredients" class="ingredients">
+			<ng-container matColumnDef="title">
+				<td mat-cell *matCellDef="let data"> {{ data.title }} </td>
+			</ng-container>
+			<ng-container matColumnDef="qty">
+				<td mat-cell *matCellDef="let data"> {{ data.qty }} {{ data.unit }} </td>
+			</ng-container>
+			<ng-container matColumnDef="addTodo">
+				<td mat-cell *matCellDef="let data">
+					<button type="button" mat-icon-button (click)="openTodoDialog(data.title, data.qty, data.unit)" color="accent">
+						<mat-icon>add</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+			<tr mat-row *matRowDef="let row; columns: ['title', 'qty', 'addTodo'];"></tr>
+		</table>
+		<br>
+		<h2>
+			Tillagning
+			<button *ngIf="editing" mat-button color="accent" (click)="openRecipeEditConcoctionDialog()">
+				<mat-icon>edit</mat-icon>
+			</button>
+		</h2>
+		<table mat-table [dataSource]="recipeItem.concoction" class="concoction">
+			<ng-container matColumnDef="index">
+				<td mat-cell *matCellDef="let index = index"> {{ index + 1 }} </td>
+			</ng-container>
+			<ng-container matColumnDef="concoction">
+				<td mat-cell *matCellDef="let data"> {{ data }} </td>
+			</ng-container>
+			<tr mat-row *matRowDef="let row; columns: ['index', 'concoction']"></tr>
+		</table>
+	</div>
+</div>
+<br>

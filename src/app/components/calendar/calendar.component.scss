@@ -1,0 +1,34 @@
+/* https://www.itsolutionstuff.com/post/how-to-get-width-and-height-of-screen-in-angularexample.html */
+.table {
+	width: 100%;
+}
+
+.mat-column-week {
+	width: 32px;
+	border-right: 1px solid currentColor;
+	padding-right: 16px;
+	padding-left: 16px;
+	text-align: center;
+}
+
+.mat-column-title {
+	padding-left: 16px;
+}
+
+.mat-column-date {
+	font-style: italic;
+	padding: 0;
+}
+
+.mat-column-shopping-list {
+	width: 40px;
+	padding-right: 12px !important;
+}
+
+.mat-header-cell + .mat-column-shopping-list {
+	text-align: center;
+}
+
+.weeknumber-bg {
+	background-color: rgb(222, 222, 222);
+}

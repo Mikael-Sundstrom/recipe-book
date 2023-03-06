@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$recipe-book-theme: mat.define-light-theme((
+	color: (
+		primary:  mat.define-palette(mat.$green-palette, 400),
+		accent: mat.define-palette(mat.$gray-palette, A200, A100, A400),
+		warn: mat.define-palette(mat.$red-palette)
+	),
+	typography: mat.define-typography-config()
+));
+
+@include mat.all-component-themes($recipe-book-theme);
+
+
+/**
+ *
+ *	Global styles
+ *
+ */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	margin: 0;
+}
+
+app-root {
+	width: inherit;
+	min-width: -webkit-fill-available;
+	min-width: -moz-available;
+}
+
+.hide {
+	display: none !important;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+// Material Dialog
+app-todo-create-dialog,
+app-calendar-add-ingredients-dialog,
+app-recipe-create-dialog,
+app-update-dialog,
+app-recipe-edit-description,
+app-recipe-edit-concoction,
+app-recipe-edit-ingredients,
+app-recipe-edit-meta {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.mat-mdc-dialog-content {
+	min-height: calc(100% - 128px);
+}

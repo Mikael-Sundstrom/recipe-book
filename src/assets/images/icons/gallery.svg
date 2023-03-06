@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<svg data-name="iOS7 Icon Template" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+	<g fill="#FFD561" stroke="#FFD561" stroke-width="50" stroke-linecap="round" stroke-linejoin="round">
+		<polygon points="1100 770 1100 1080 230 1080 230 950 460 720 690 950 1000 640 1100 770"/>
+		<circle stroke="none" cx="390" cy="390" r="120"/>
+	</g>
+	<g stroke="#6EAF6C" fill="none" stroke-width="50" stroke-linecap="round" stroke-linejoin="round">
+		<polyline points="1062 543 1062 1047 143 1047 143 129 1062 129 1062 273"/>
+		<line x1="1062" x2="1062" y1="373" y2="458"/>
+		<polyline points="792 717 916 593 1062 751"/>
+		<polyline points="143 908 373 678 603 908 701 808"/>
+		<line x1="1062" x2="1061" y1="751" y2="751"/>
+		<circle cx="355" cy="340" r="127"/>
+	</g>
+</svg>

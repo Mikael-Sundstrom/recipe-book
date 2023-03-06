@@ -1,0 +1,16 @@
+/* button {
+    position: fixed;
+    right: 272px;
+    bottom: 54px;
+}
+
+@media only screen and (max-width: 955px) {
+    button {
+        right: 16px;
+
+    }
+} */
+button {
+	width: calc(100% - 16px);
+	margin: 8px;
+}

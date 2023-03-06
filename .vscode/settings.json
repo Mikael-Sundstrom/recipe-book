@@ -1,26 +1,25 @@
 {
 	"files.exclude": {
 		"**/.vscode": false,
-		"**/node_modules": true,
-		"**/*.spec.ts": false,
+		"**/node_modules": false,
 		"**/*karma*": false,
-		"**/.editorconfig*": false,
 		"**/polyfills.ts": false,
 		"**/test.ts": false,
-		"**/favicon.ico": true,
-		"**/.browserslistrc": false,
+		"**/favicon.ico": false,
 		"**/firebase.json": false,
 		"**/firebase-debug.log": false,
 		"**/.firebaserc": false,
 		"**/.gitignore": false,
+		"**/angular.json": false,
+		"**/LICENSE.md": false,
 		"**/README.md": false,
-		"**/environments": true,
+		"**/environments": false,
 		"**/main.ts": false,
 		"tsconfig.*": false,
 	},
 	"workbench.colorTheme": "Darcula",
 	"editor.tabSize": 4,
-	"editor.fontSize": 16,
+	"editor.fontSize": 15,
 	"editor.wordWrapColumn": 400,
 	"editor.linkedEditing": true,
 	"editor.insertSpaces": false,
@@ -28,12 +27,15 @@
 	"editor.formatOnSave": true,
 	"editor.minimap.enabled": false,
 	"editor.minimap.maxColumn": 256,
-	"scss.lint.compatibleVendorPrefixes": "ignore",
 	"terminal.integrated.profiles.windows": {
 		"Git Bash": {
 			"path": "C:\\Program Files\\Git\\bin\\bash.exe"
 		}
 	},
 	"terminal.integrated.defaultProfile.windows": "Git Bash",
-	"html.format.wrapLineLength": 400
+	"html.format.wrapLineLength": 400,
+	"angular.disableAutomaticNgcc": true,
+	"workbench.hover.delay": 400,
+	"workbench.startupEditor": "none",
+	"typescript.format.semicolons": "remove",
 }

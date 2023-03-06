@@ -1,0 +1,54 @@
+div {
+	.feature-image {
+		img {
+			margin-top: 16px;
+			border-radius: 12px;
+			width: 100%;
+			box-shadow: 0 0 5px 2px rgba(#333, 0.2);
+		}
+	}
+
+	> h1 > button,
+	> h2 > button {
+		vertical-align: middle;
+		float: right;
+	}
+
+	&.left-column div {
+		margin: 0 16px;
+	}
+
+	&.right-column {
+		margin: 0 16px;
+
+		table {
+			width: 100%;
+
+			&.ingredients {
+				td {
+					padding: 12px;
+
+					&:first-child {
+						min-width: 50%;
+					}
+
+					&:last-child button {
+						float: right;
+					}
+				}
+			}
+
+			&.concoction {
+				td {
+					padding-top: 12px;
+					padding-right: 12px;
+					padding-bottom: 12px;
+
+					&:first-child {
+						width: 24px;
+					}
+				}
+			}
+		}
+	}
+}

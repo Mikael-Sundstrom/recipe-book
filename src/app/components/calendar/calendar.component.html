@@ -1,0 +1,36 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+
+	<!-- Column: Week number -->
+	<ng-container matColumnDef="week">
+		<th mat-header-cell *matHeaderCellDef> Datum </th>
+		<td mat-cell *matCellDef="let element" [ngClass]="{'weeknumber-bg':element.date == getIsoDate(today)}" (click)="openCalendarDialog(element)">Vecka {{ element.date | weeknumber }}</td>
+	</ng-container>
+
+	<!-- Column: Title -->
+	<ng-container matColumnDef="title">
+		<th mat-header-cell *matHeaderCellDef> Recept </th>
+		<td mat-cell *matCellDef="let element" (click)="openCalendarDialog(element)"> {{ element.title }} </td>
+	</ng-container>
+
+	<!-- Column: Date -->
+	<ng-container matColumnDef="date">
+		<th mat-header-cell *matHeaderCellDef> Datum </th>
+		<td mat-cell *matCellDef="let element" (click)="openCalendarDialog(element)"> {{ getIsoDate(element.date, 0) | date:'EEEE' }}
+			<br>{{ element.date | date:'dd MMM' }}
+		</td>
+	</ng-container>
+
+	<!-- Column: Shopping list -->
+	<ng-container matColumnDef="shopping-list">
+		<th mat-header-cell *matHeaderCellDef> Inköp </th>
+		<td mat-cell *matCellDef="let element">
+			<button mat-icon-button (click)="openIngredientDialog(element)" [ngClass]="{'hide':element.title.length < 1}">
+				<mat-icon>add</mat-icon>
+			</button>
+		</td>
+	</ng-container>
+
+	<!-- Rows -->
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,246 @@
+<div class="page-header">
+	<h2>Nytt recept</h2>
+	<span>{{ recipeId }}</span>
+
+
+	<button mat-raised-button color="accent" type="button" (click)="create()">
+		<mat-icon>
+			save
+		</mat-icon>
+		Spara
+	</button>
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+	<div fxFlex="40" class="left-column">
+
+		<img [src]="(recipeItem | async)?.image" width="100%">
+
+		<div>
+			<h2>
+				<mat-form-field appearance="fill">
+					<mat-label>Titel</mat-label>
+					<input aria-label="autocomplete" matInput [ngModel]="title" (ngModelChange)="title = $event" autocomplete="off" onkeyup="this.title = this">
+				</mat-form-field>
+			</h2>
+			<app-storage-upload (uploadURL)="uploadImage($event)"></app-storage-upload>
+			<br>
+
+			<!-- Tags as categories -->
+			<mat-form-field appearance="fill">
+				<mat-label>Kategori / taggar</mat-label>
+				<mat-chip-grid #chipGrid aria-label="Välj kategori">
+					<mat-chip-row *ngFor="let category of categories" (removed)="removeCategory(category)">
+						{{category}}
+						<button matChipRemove>
+							<mat-icon>cancel</mat-icon>
+						</button>
+					</mat-chip-row>
+					<input placeholder="Ny kategori..." #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addCategory($event)" autocomplete="off">
+				</mat-chip-grid>
+				<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCategory($event)">
+					<mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+						{{category}}
+					</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
+
+			<br>
+			<mat-form-field appearance="fill">
+				<mat-label>Tid att tillaga (min)</mat-label>
+				<input aria-label="cooking" matInput [ngModel]="cooking" (ngModelChange)="cooking = $event" autocomplete="off" type="number" min="0">
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Portioner</mat-label>
+				<input aria-label="portions" matInput [ngModel]="portions" (ngModelChange)="portions = $event" autocomplete="off" type="number" min="0">
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Beskrivning</mat-label>
+				<textarea matInput [ngModel]="description" (ngModelChange)="description = $event" autocomplete="off" placeholder="Ett stycke..."></textarea>
+			</mat-form-field>
+		</div>
+
+
+	</div>
+	<div fxFlex="60" class="right-column">
+		<div class="block-header">
+			<h2>Ingridienser</h2>
+			<button mat-raised-button color="accent" (click)="openIngredientDialog()">
+				<mat-icon>add</mat-icon> Ny ingrident
+			</button>
+		</div>
+
+		<table mat-table #ingredientTable [dataSource]="ingredients" class="ingredients" [cdkDropListData]="ingredients" cdkDropList (cdkDropListDropped)="dropIngredient($event)">
+			<ng-container matColumnDef="title">
+				<th mat-header-cell *matHeaderCellDef> Vara </th>
+				<td mat-cell *matCellDef="let data;"> {{ data.title }} </td>
+			</ng-container>
+			<ng-container matColumnDef="qty">
+				<th mat-header-cell *matHeaderCellDef> Antal </th>
+				<td mat-cell *matCellDef="let data"> {{ data.qty }}</td>
+			</ng-container>
+			<ng-container matColumnDef="unit">
+				<th mat-header-cell *matHeaderCellDef> Enhet </th>
+				<td mat-cell *matCellDef="let data">{{ data.unit }} </td>
+			</ng-container>
+			<ng-container matColumnDef="action">
+				<th mat-header-cell *matHeaderCellDef> </th>
+				<td mat-cell *matCellDef="let index = index">
+					<button mat-icon-button (click)="deleteIngredient(index)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="['title', 'qty', 'unit', 'action']"></tr>
+			<tr mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: ['title', 'qty', 'unit', 'action']">
+				<ng-template cdkDragPreview matchSize=true>
+					<table class="preview-ingredient">
+						<tr>
+							<td>
+								{{row.title}}
+							</td>
+							<td>
+								{{row.qty}}
+							</td>
+							<td>
+								{{row.unit}}
+							</td>
+							<td>
+								<button mat-icon-button>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</ng-template>
+			</tr>
+
+		</table>
+
+
+		<br>
+		<div class="block-header">
+			<h2>Tillagning</h2>
+			<button mat-raised-button color="accent" (click)="openConcoctionDialog()">
+				<mat-icon>add</mat-icon> Ny instruktion
+			</button>
+		</div>
+
+		<table mat-table #concoctionTable [dataSource]="concoction" class="concoction" [cdkDropListData]="concoction" cdkDropList (cdkDropListDropped)="dropConcoction($event)">
+			<ng-container matColumnDef="index">
+				<th mat-header-cell *matHeaderCellDef> Postition </th>
+				<td mat-cell *matCellDef="let index = index"> {{ index + 1 }} </td>
+			</ng-container>
+			<ng-container matColumnDef="concoction">
+				<th mat-header-cell *matHeaderCellDef> Instruktion </th>
+				<td mat-cell *matCellDef="let data"> {{ data }} </td>
+			</ng-container>
+			<ng-container matColumnDef="action">
+				<th mat-header-cell *matHeaderCellDef> </th>
+				<td mat-cell *matCellDef="let index = index">
+					<button mat-icon-button (click)="deleteConcoction(index)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="['index', 'concoction','action']"></tr>
+			<tr mat-row cdkDrag [cdkDragData]="row" *matRowDef="let row; columns: ['index', 'concoction','action'];"></tr>
+		</table>
+	</div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+	<mat-form-field>
+		<mat-label>Rubrik</mat-label>
+		<input matInput formControlName="title">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Beskrivning</mat-label>
+		<textarea matInput formControlName="description"></textarea>
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Tid</mat-label>
+		<input matInput formControlName="cooking">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Tillagning</mat-label>
+		<input matInput formControlName="concoction">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Kategorier</mat-label>
+		<input matInput formControlName="categories">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Skapad</mat-label>
+		<input matInput formControlName="created">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Ingrideinser</mat-label>
+		<input matInput formControlName="ingredients">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Portioner</mat-label>
+		<input matInput type="number" formControlName="portions">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Uppdaterad</mat-label>
+		<input matInput formControlName="updated">
+	</mat-form-field>
+	<br>
+	<mat-form-field>
+		<mat-label>Rubrik</mat-label>
+		<input matInput formControlName="portions">
+	</mat-form-field> -->
+<!-- <mat-form-field>
+		<input matInput cdkFocusInitial type="text" placeholder="Livsmedel" formControlName="title" [matAutocomplete]="groceryGroup">
+		<mat-autocomplete #groceryGroup="matAutocomplete">
+			<mat-option *ngFor="let grocery of filteredGroceries | async" [value]="grocery">
+				<div>
+					<img aria-hidden onerror="this.src='assets/images/icons/placeholder.svg'" src="assets/images/items/{{ grocery | lowercase }}.png">
+					<span>{{grocery}}</span>
+				</div>
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<mat-form-field style="width: 70%;">
+		<mat-label>Antal</mat-label>
+		<input type="number" matInput formControlName="qty">
+	</mat-form-field>
+	<mat-form-field style="width: 30%;">
+		<input formControlName="unit" type="text" placeholder="Enhet" matInput [matAutocomplete]="unitsGroup">
+		<mat-autocomplete #unitsGroup="matAutocomplete">
+			<mat-option *ngFor="let unit of filteredUnits | async" [value]="unit">
+				{{ unit }}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<mat-form-field class="example-full-width">
+		<mat-label>Beskrivning</mat-label>
+		<textarea matInput formControlName="description" placeholder="Skriv något för att tillägga..."></textarea>
+	</mat-form-field> -->
+<!-- <br>
+	<button mat-button type="button">
+		Tillbaka
+	</button>
+	<button mat-button type="submit">
+		Skapa
+	</button>
+</form> -->

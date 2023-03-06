@@ -1,0 +1,68 @@
+<h2>Bilder</h2>
+<mat-grid-list cols="3" rowHeight="2:1">
+	<mat-grid-tile *ngFor="let file of dataSource |async" (click)="eventHandler(file)">
+		<img alt={{file.name}} [src]="file.path" width="64">
+		<div matListItemLine>{{ file.timeCreated | date:'yyyy-MM-dd' }}</div>
+	</mat-grid-tile>
+</mat-grid-list>
+<!-- <mat-list>
+	<div mat-subheader>Notes</div>
+	<mat-list-item *ngFor="let file of allFiles">
+		<mat-icon matListItemIcon>note</mat-icon>
+		<div matListItemTitle>{{file.name}}</div>
+		<div matListItemLine>{{ file.meta.timeCreated | date:'yyyy-MM-dd' }}</div>
+	</mat-list-item>
+</mat-list> -->
+<!-- <mat-selection-list #shoes [multiple]="false">
+	<mat-list-option *ngFor="let file of allFiles" [value]="file">
+		{{file.name}}
+	</mat-list-option>
+</mat-selection-list>
+
+<p>
+	Option selected: {{shoes.selectedOptions.selected[0]}}
+</p> -->
+
+<!-- <mat-selection-list #shoes [multiple]="false">
+	<mat-list-option *ngFor="let file of allFiles" [value]="file">
+		<img alt={{file.name}} [src]="file.path | async" width="32">
+		{{file.name}}
+	</mat-list-option>
+</mat-selection-list>
+
+<p>
+	Option selected: {{shoes.selectedOptions.hasValue() ? shoes.selectedOptions.selected[0].value : 'None'}}
+</p> -->
+
+<!-- <table matSort>
+	<tr *ngFor="let file of allFiles" (click)="eventHandler(file.path,file.meta,file.folder,file.name)">
+		<td><img [src]="file.path | async"></td>
+		<td>{{ file.name }}<br><br>{{ file.meta.timeCreated | date:'yyyy-MM-dd' }}<br></td>
+	</tr>
+</table> -->
+<!-- <img *ngFor="let aa of sortedFiles" [src]="aa | async"> -->
+
+<!-- <table mat-table [dataSource]="allFiles" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+
+	<ng-container matColumnDef="image">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+			Image
+		</th>
+		<td mat-cell *matCellDef="let element"> <img src="{{element.path | async}}" alt=""> </td>
+	</ng-container>
+
+	<ng-container matColumnDef="meta">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+			Date
+		</th>
+		<td mat-cell *matCellDef="let element"> {{element.meta.timeCreated | date}} </td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table> -->
+<!-- <ul class="grid">
+	<li *ngFor="let file of allFiles">
+		<img src="{{ file.path | async }}" alt="image">
+	</li>
+</ul> -->

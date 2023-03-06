@@ -1,0 +1,38 @@
+<mat-toolbar aria-level="1" color="primary" role="heading">
+	<mat-toolbar-row>
+		<!-- Go Back Button -->
+		<button type="button" class="title" mat-icon-button (click)="location.back()" *ngIf="!isRoot">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+		<span id="goBackPlaceholder" *ngIf="isRoot"></span>
+
+		<!-- Logo -->
+		<span class="title" routerLink="calendar">{{title}}</span>
+
+		<!-- Menu Button -->
+		<button type="button" class="title" mat-icon-button [matMenuTriggerFor]="menu">
+			<mat-icon>menu</mat-icon>
+		</button>
+
+	</mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Configuration links -->
+<mat-menu #menu="matMenu">
+	<button type="button" mat-menu-item *ngFor="let link of configLinks" routerLink="{{ link.path }}" routerLinkActive="isActive">
+		<img alt class="toolbar-menu-image" src="assets/images/icons/{{link.icon}}">&nbsp; &nbsp;
+		<span>{{ link.label }}</span>
+	</button>
+</mat-menu>
+
+<!-- Main content -->
+<main [ngClass]="getRouteWithTabs()">
+	<nav mat-tab-nav-bar mat-stretch-tabs [tabPanel]="tabPanel">
+		<a mat-tab-link *ngFor="let link of tabLinks" routerLink={{link.path}} routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+			<img alt src="{{ link.icon }}">
+		</a>
+	</nav>
+	<mat-tab-nav-panel #tabPanel>
+		<router-outlet></router-outlet>
+	</mat-tab-nav-panel>
+</main>

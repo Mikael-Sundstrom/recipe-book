@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Lägg till i inköpslistan</h2>
+<mat-dialog-content>
+	<form [formGroup]="todoForm">
+		<mat-form-field>
+			<input matInput cdkFocusInitial type="text" placeholder="Produkt" formControlName="title" [matAutocomplete]="groceryGroup">
+			<mat-autocomplete #groceryGroup="matAutocomplete">
+				<mat-option *ngFor="let grocery of filteredGroceries | async" [value]="grocery">
+					<div>
+						<span>{{grocery}}</span>
+					</div>
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+		<mat-form-field class="add-todo-number">
+			<mat-label>Antal</mat-label>
+			<input title="number" type="number" matInput formControlName="qty">
+		</mat-form-field>
+		<mat-form-field class="add-todo-unit">
+			<input formControlName="unit" type="text" placeholder="Enhet" matInput [matAutocomplete]="unitsGroup">
+			<mat-autocomplete #unitsGroup="matAutocomplete">
+				<mat-option *ngFor="let unit of filteredUnits | async" [value]="unit">
+					{{ unit }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Beskrivning</mat-label>
+			<textarea matInput formControlName="description" placeholder="Skriv något för att tillägga..."></textarea>
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+<div class="spacer"></div>
+<mat-dialog-actions align="end">
+	<button mat-button [mat-dialog-close]="false" class="dialog-cancel">Avbryt</button>
+	<button mat-raised-button color="accent" [mat-dialog-close]="todoForm" type="button" class="dialog-create">
+		Skapa
+	</button>
+</mat-dialog-actions>

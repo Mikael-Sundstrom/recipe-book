@@ -1,0 +1,42 @@
+.mat-mdc-tab-link {
+	height: 70px !important;
+}
+
+nav img {
+	height: 50px;
+}
+
+mat-toolbar-row {
+	justify-content: space-between;
+	max-width: 1280px;
+	margin: auto;
+
+	.title {
+		font-size: 22px;
+		color: #ffd561;
+		/* -webkit-text-fill-color: #6eaf6c; */ /* Will override color (regardless of order) */
+		-webkit-text-stroke-width: 0.3px;
+		-webkit-text-stroke-color: #6eaf6c;
+		cursor: pointer;
+	}
+
+	> #goBackPlaceholder {
+		width:48px;
+	}
+}
+
+main {
+	max-width: 1280px;
+	margin: auto;
+}
+
+button.mat-menu-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.toolbar-menu-image {
+	width: 24px;
+	vertical-align: middle;
+}

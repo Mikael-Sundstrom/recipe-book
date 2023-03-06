@@ -1,0 +1,18 @@
+<mat-card class="upload-card">
+	<mat-card-content class="upload-card-content">
+		<div class="dropzone" dropzone #dropzone (resized)="onResized($event)" (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
+			<h3>Drag and drop</h3>
+			<mat-icon aria-hidden="false" fontIcon="upload" class="upload-icon"></mat-icon>
+			<br>
+			<label class="upload-card-label-button">
+				<div matRipple class="upload-card-button">Välj en bild</div>
+				<input class="upload-card-input" type="file" (change)="chooseFile($event)">
+			</label>
+			<br>
+		</div>
+		<mat-divider></mat-divider>
+	</mat-card-content>
+	<mat-card-footer>
+		<mat-progress-bar mode="determinate" [value]="uploadProgress"> </mat-progress-bar>
+	</mat-card-footer>
+</mat-card>

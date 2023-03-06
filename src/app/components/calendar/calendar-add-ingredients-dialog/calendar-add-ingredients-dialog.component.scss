@@ -1,0 +1,13 @@
+table {
+	width: 100%;
+
+	&.ingredients {
+		td {
+			padding: 12px;
+
+			&:first-child {
+				min-width: 50%;
+			}
+		}
+	}
+}
